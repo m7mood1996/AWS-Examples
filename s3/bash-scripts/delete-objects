@@ -1,0 +1,29 @@
+#! /usr/bin/env bash
+
+echo "== delete objects"
+set -e
+
+OUTPUT_DIR="/tmp/s3-bash-scripts"
+
+# Check for bucket name
+if [ -z "$1" ]; then
+    echo "There needs to be a bucket name eg. ./delete-object my-bucket-name"
+    exit 1
+fi 
+
+
+
+BUCKET_NAME="$1"
+
+
+LIST_OUTPUT=$(aws s3api list-objects-v2 --bucket "$BUCKET_NAME" --query 'Contents[].{Key: Key}')
+
+if [ "$LIST_OUTPUT" == "null" ]; then
+    echo "Bucket is already empty"
+    exit 0
+fi
+
+FORMATED_OUTPUT="{\"Quiet\": false, \"Objects\": $LIST_OUTPUT}"
+
+aws s3api delete-objects --bucket "$BUCKET_NAME" --delete "$FORMATED_OUTPUT"
+

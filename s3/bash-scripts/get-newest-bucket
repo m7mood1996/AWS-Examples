@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+echo "== get the latest bucket"
+
+
+aws s3api list-buckets \
+    --query 'sort_by(Buckets, &CreationDate)[-1].Name' \
+    --output text

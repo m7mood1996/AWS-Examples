@@ -1,0 +1,26 @@
+#! /usr/bin/env bash
+
+echo "== delete object"
+set -e
+
+OUTPUT_DIR="/tmp/s3-bash-scripts"
+
+# Check for bucket name
+if [ -z "$1" ]; then
+    echo "There needs to be a bucket name eg. ./delete-object my-bucket-name file/path"
+    exit 1
+fi 
+
+
+if [ -z "$2" ]; then
+    echo "There needs to be a file path eg. ./delete-object my-bucket-name /file/path"
+    exit 1
+fi 
+
+BUCKET_NAME="$1"
+FILE_PATH="$2"
+
+
+aws s3api delete-object \
+    --bucket "$BUCKET_NAME" \
+    --key "$FILE_PATH"

@@ -1,0 +1,20 @@
+# AWS credentials / secrets - never commit these
+.aws/
+credentials
+*.pem
+*.key
+.env
+.env.*
+
+# Temp files written by the scripts
+object_list.json
+
+# Test files uploaded to S3
+*.png
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/*
+!.vscode/settings.json

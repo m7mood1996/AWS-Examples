@@ -1,0 +1,35 @@
+#! /usr/bin/env bash
+
+echo "== sync"
+set -e
+
+OUTPUT_DIR="/tmp/s3-bash-scripts"
+
+# Check for bucket name
+if [ -z "$1" ]; then
+    echo "There needs to be a bucket name eg. ./put-object my-bucket-name file-path"
+    exit 1
+fi 
+
+
+if [ -z "$2" ]; then
+    echo "There needs to be a file path eg. ./put-object my-bucket-name /file/path"
+    exit 1
+fi 
+
+BUCKET_NAME="$1"
+FILE_PATH="$2"
+OBJECT_KEY=$(basename "$FILE_PATH")
+
+if [ -d "$OUTPUT_DIR" ]; then
+    rm -r "$OUTPUT_DIR"
+fi
+mkdir $OUTPUT_DIR
+
+
+tree $OUTPUT_DIR
+
+aws s3api put-object \
+    --bucket "$BUCKET_NAME" \
+    --body "$FILE_PATH" \
+    --key "$OBJECT_KEY"
