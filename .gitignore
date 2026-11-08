@@ -9,6 +9,12 @@ credentials
 # Temp files written by the scripts
 object_list.json
 
+# Ruby / Bundler generated files
+.bundle/
+**/vendor/bundle/
+pkg/
+*.gem
+
 # Test files uploaded to S3
 *.png
 
