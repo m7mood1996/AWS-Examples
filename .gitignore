@@ -15,6 +15,22 @@ object_list.json
 pkg/
 *.gem
 
+# Terraform generated files and local overrides
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+crash.*.log
+*.tfvars
+*.tfvars.json
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
+
 # Test files uploaded to S3
 *.png
 
